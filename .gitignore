@@ -4,3 +4,4 @@ nenv
 /bucket/__pycache__
 /bucket/migrations
 /bucket/migration
+/__pycache__

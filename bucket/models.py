@@ -17,6 +17,7 @@ class Gallery(models.Model):
     filename  = models.CharField(max_length = 150, default='')
     type  = models.CharField(max_length = 150, default='')
     created_at = models.DateField(auto_now=True)
+    files =  models.FileField(upload_to='media/fb', max_length=100, null=True)
     
 
 
