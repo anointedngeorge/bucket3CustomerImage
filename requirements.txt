@@ -3,3 +3,4 @@ backports.zoneinfo==0.2.1
 Django==4.1.7
 sqlparse==0.4.3
 django-ninja  == 0.20.0
+mysqlclient  == 2.1.1
