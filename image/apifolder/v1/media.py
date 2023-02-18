@@ -54,12 +54,21 @@ def register_image_gallery(request, file: UploadedFile = File(...)):
     return {'name': file.name, 'len': file.size}
 
 
+
+@router.get('/get-gallery-image/', response=List[GalleryOut])
+def get_gallery_image(request):
+    '''Get gallery image'''
+    gallery = Gallery.objects.all()
+    return gallery
+  
+
+
 @router.get('/get-gallery-image/{name}/', response=List[GalleryOut])
 def get_gallery_image_by_name(request, name:str):
     '''Get gallery image'''
     if Gallery.objects.all().filter(name=name).exists():
-        gallery = Gallery.objects.all().filter(name=name).get()
-        return {'data':gallery}
+        gallery = Gallery.objects.all().filter(name=name)
+        return gallery
     else:
         return {'data':'Failed'}
 

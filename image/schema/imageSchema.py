@@ -12,4 +12,4 @@ class GalleryOut(Schema):
     name:str
     size:int
     filename:str
-    data:str
+    # data:str
