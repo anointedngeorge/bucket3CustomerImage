@@ -2,3 +2,5 @@
 nenv
 /image/schecma/__pycache__
 /bucket/__pycache__
+/bucket/migrations
+/bucket/migration
