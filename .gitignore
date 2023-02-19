@@ -1,7 +1,9 @@
 /fenv
 nenv
-/image/schecma/__pycache__
-/bucket/__pycache__
-/bucket/migrations
-/bucket/migration
+image/schecma/__pycache__
+bucket/__pycache__
+bucket/migrations
+bucket/migration
 /__pycache__
+image/apifolder/v1/__pycache__
+image/apifolder/__pycache__
