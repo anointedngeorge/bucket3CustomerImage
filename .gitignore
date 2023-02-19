@@ -5,6 +5,7 @@ image/schecma/__pycache__
 bucket/__pycache__
 bucket/migrations
 bucket/migration
+bucket/migrations/__pycache__
 
 /__pycache__
 image/apifolder/v1/__pycache__
