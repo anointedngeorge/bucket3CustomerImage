@@ -29,7 +29,11 @@ def register_image_gallery(request, file: UploadedFile = File(...)):
     g= Gallery.objects.all()
     name =  uuid.uuid4().hex
     req = request.META
-    path= f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}"
+    path= ''
+    if req.get('SCRIPT_NAME') == '':
+        path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}"
+    else:
+        path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}/{req.get('SCRIPT_NAME')}"
     # http://127.0.0.1:8000/media/storage/fb/Screenshot_from_2023-02-13_08-30-02.png
     url =  f"{path}/media/storage/fb/{name}.{filetype}"
     filename2 = f"{name}.{filetype}"
@@ -41,7 +45,7 @@ def register_image_gallery(request, file: UploadedFile = File(...)):
         'data':encode,
         'url':url,
     }
-    
+  
     # print(url)
     g.create(**data)
     decoded_data=base64.decodebytes(encode)
