@@ -79,14 +79,8 @@ def get_gallery_image(request):
 @router.get('/get-gallery-image/{code}/', response=List[GalleryOut])
 def get_gallery_image_by_code(request, code:str):
     '''Get gallery image'''
-    try:
-        if Gallery.objects.all().filter(code=code).exists():
-            gallery = Gallery.objects.all().filter(code=code)
-            return gallery
-        else:
-            return {'data':'Failed'}
-    except Exception as e:
-        return f"{e}"
+    gallery = Gallery.objects.all().filter(code=code)
+    return gallery
 
 
 @router.delete('/delete-gallery/{name}/')

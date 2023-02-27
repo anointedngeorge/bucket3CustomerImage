@@ -16,9 +16,3 @@ class BucketAdmin(admin.ModelAdmin):
         return False
 
      
-    def response_delete(self, request, obj_display, obj_id):
-        g =  self.model.objects.all().filter(id=obj_id)
-        print(g)
-  
-        # os.unlink(f"storage/fb/{g.filename}")
-        return super().response_delete(request, obj_display, obj_id)
