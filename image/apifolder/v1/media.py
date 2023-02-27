@@ -91,7 +91,7 @@ def delete_image_gallery(request, name:str):
     '''
     g = Gallery.objects.filter(name=name)
     if g.exists():
-        g = Gallery.objects.filter(name=name)
+        g = Gallery.objects.filter(name=name).get()
         os.unlink(f"storage/fb/{g.filename}")
     else:{'message':'Could not locate file with name'}
     return {"message":"Deleted successfully"}
