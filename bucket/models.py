@@ -19,7 +19,7 @@ class Gallery(models.Model):
     created_at = models.DateField(auto_now=True)
     code = models.CharField(max_length = 150, null=True)
     
-    files =  models.FileField(upload_to='media/fb', max_length=100, null=True)
+    # files =  models.FileField(upload_to='media/fb', max_length=100, null=True)
     
 
 
