@@ -85,7 +85,7 @@ def get_gallery_image_by_code(request, code:str):
 
 
 @router.delete('/delete-gallery/{name}/')
-def delete_image_gallery(request, name:int):
+def delete_image_gallery(request, name:str):
     '''
     deleting  image api....
     '''
