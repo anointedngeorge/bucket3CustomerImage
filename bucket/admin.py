@@ -6,12 +6,5 @@ import os
 
 @admin.register(Gallery)
 class BucketAdmin(admin.ModelAdmin):
-    list_display=['name','size','type','url','filename']
-
-    # def has_add_permission(self, request) -> bool:
-    #     return False
-
-    # def response_action(self, request, queryset):
-    #     print(request)
-    #     print('Hy')
-    #     return super().response_action(request, queryset)
+    list_display=['name','size','type','url','filename','code']
+    list_filter = ['code','type','size','name']

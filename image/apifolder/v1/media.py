@@ -20,8 +20,8 @@ image_filename = os.path.realpath('storage/fb')
 
 
 
-@router.post('/register-gallery/')
-def register_image_gallery(request, file: UploadedFile = File(...)):
+@router.post('/register-gallery/{code}/')
+def register_image_gallery(request, code, file: UploadedFile = File(...)):
     filedata = file.read()
     # print(name)
     encode =  base64.encodebytes(filedata)
@@ -44,6 +44,7 @@ def register_image_gallery(request, file: UploadedFile = File(...)):
         'type':filetype,
         'data':encode,
         'url':url,
+        'code':code,
     }
   
     # print(url)
@@ -55,26 +56,32 @@ def register_image_gallery(request, file: UploadedFile = File(...)):
     img_file.write(decoded_data)
     img_file.close()
  
-    return {'name': file.name, 'len': file.size}
+    return {'name': file.name, 'len': file.size, 'code':code}
 
 
 
 @router.get('/get-gallery-image/', response=List[GalleryOut])
 def get_gallery_image(request):
     '''Get gallery image'''
-    gallery = Gallery.objects.all()
-    return gallery
+    try:
+        gallery = Gallery.objects.all()
+        return gallery
+    except Exception as e:
+        return f"{e}"
   
 
 
-@router.get('/get-gallery-image/{name}/', response=List[GalleryOut])
-def get_gallery_image_by_name(request, name:str):
+@router.get('/get-gallery-image/{code}/', response=List[GalleryOut])
+def get_gallery_image_by_code(request, code:str):
     '''Get gallery image'''
-    if Gallery.objects.all().filter(name=name).exists():
-        gallery = Gallery.objects.all().filter(name=name)
-        return gallery
-    else:
-        return {'data':'Failed'}
+    try:
+        if Gallery.objects.all().filter(code=code).exists():
+            gallery = Gallery.objects.all().filter(code=code)
+            return gallery
+        else:
+            return {'data':'Failed'}
+    except Exception as e:
+        return f"{e}"
 
 
 @router.delete('/delete-gallery/{name}/')
