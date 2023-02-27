@@ -23,40 +23,45 @@ image_filename = os.path.realpath('storage/fb')
 @router.post('/register-gallery/{code}/')
 def register_image_gallery(request, code, file: UploadedFile = File(...)):
     filedata = file.read()
+    size =  float(file.size) / 8;
+    filesize_in_mb = float(size) // 1024
+    # 1 Byte = 8 Bit 1 Kilobyte = 1,024 Bytes 1 Megabyte = 1,048,576 Bytes 1 Gigabyte = 1,073,741,824 Bytes
     # print(name)
     encode =  base64.encodebytes(filedata)
     filetype =  str(file.name).split('.')[1]
     g= Gallery.objects.all()
-    name =  uuid.uuid4().hex
-    req = request.META
-    path= ''
-    if req.get('SCRIPT_NAME') == '':
-        path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}"
-    else:
-        path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}{req.get('SCRIPT_NAME')}"
-    # http://127.0.0.1:8000/media/storage/fb/Screenshot_from_2023-02-13_08-30-02.png
-    url =  f"{path}/media/storage/fb/{name}.{filetype}"
-    filename2 = f"{name}.{filetype}"
-    data = {
-        'name':name,
-        'size':file.size,
-        'filename':filename2,
-        'type':filetype,
-        'data':encode,
-        'url':url,
-        'code':code,
-    }
-  
-    # print(url)
-    g.create(**data)
-    decoded_data=base64.decodebytes(encode)
-    d = os.path.exists(image_filename)
-    # print(d)
-    img_file = open(f"{image_filename}/{filename2}", 'wb')
-    img_file.write(decoded_data)
-    img_file.close()
- 
-    return {'name': file.name, 'len': file.size, 'code':code}
+    if (filesize_in_mb <= 15):
+        name =  uuid.uuid4().hex
+        req = request.META
+        path= ''
+        if req.get('SCRIPT_NAME') == '':
+            path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}"
+        else:
+            path += f"{req.get('wsgi.url_scheme')}://{req.get('HTTP_HOST')}{req.get('SCRIPT_NAME')}"
+        # http://127.0.0.1:8000/media/storage/fb/Screenshot_from_2023-02-13_08-30-02.png
+        url =  f"{path}/media/storage/fb/{name}.{filetype}"
+        filename2 = f"{name}.{filetype}"
+        data = {
+            'name':name,
+            'size':file.size,
+            'filename':filename2,
+            'type':filetype,
+            'data':encode,
+            'url':url,
+            'code':code,
+        }
+    
+        # print(url)
+        g.create(**data)
+        decoded_data=base64.decodebytes(encode)
+        d = os.path.exists(image_filename)
+        # print(d)
+        img_file = open(f"{image_filename}/{filename2}", 'wb')
+        img_file.write(decoded_data)
+        img_file.close()
+    
+        return {'name': file.name, 'len': file.size, 'code':code}
+    return {'message':f"file size must be less than 15mb, Currently you've {filesize_in_mb}."}
 
 
 
