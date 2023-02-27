@@ -17,6 +17,34 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+CORS_ALLOWED_ORIGINS = [
+    # "https://logisticsnumber1.com/courier/",
+    "http://127.0.0.1:8010",
+    "https://superadmin.bgbot.app",
+
+]
+
+CORS_ALLOWED_ORIGIN_REGEXES = []
+CORS_ALLOW_ALL_ORIGINS:True
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+
+CORS_ALLOW_HEADERS = [
+ "content-type",
+]
+
+CORS_ALLOW_CREDENTIALS:True
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -26,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bucket'
+    'bucket',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -37,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'image.urls'
