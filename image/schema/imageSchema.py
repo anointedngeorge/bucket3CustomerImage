@@ -14,3 +14,4 @@ class GalleryOut(Schema):
     filename:str
     url:str
     code:str
+    type:str
